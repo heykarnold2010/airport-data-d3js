@@ -6,9 +6,11 @@ export default function define(runtime, observer) {
   const fileAttachments = new Map([["walmart.tsv",new URL("./files/584765eba3dde077d5e14795a23179b06f32e3d8acdb624972812fffb82c232b3222dd85724740394d9f76a73b4fc340ccc4db8015b7995b7562e5d2fa9577ca",import.meta.url)],["states-albers-10m.json",new URL("./files/0d8fa65dce2397df03b75fb4fabbc7d79e2794ef64f018bdd1dd43460bc3795743e69dbf1d7456791cbef424e272d5cd33f49e3e445ce78f9a53ef5e5755e16e",import.meta.url)]]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], function(md){return(
-md`# Hexbin Map
+md`# Airport Map
 
-This map shows approximately 3,000 locations of Walmart stores. The hexagon area represents the number of stores in the vicinity, while the color represents the median age of these stores. Older stores are red, and newer stores are blue.`
+This map shows approximately 60 locations of Airports in America. The hexagon area represents the number of airports in the vicinity, while the color represents the median age of these airports. Older airports are red, and newer airports are blue.
+
+I want to change median date to registering what class type of airport these are. There are Class B, C, D and E airports, along with private airports. This is a work in progress.`
 )});
   main.variable(observer("chart")).define("chart", ["d3","width","height","legend","color","data","topojson","us","hexbin","radius"], function(d3,width,height,legend,color,data,topojson,us,hexbin,radius)
 {
@@ -18,9 +20,9 @@ This map shows approximately 3,000 locations of Walmart stores. The hexagon area
   svg.append("g")
       .attr("transform", "translate(610,20)")
       .append(() => legend({
-        color, 
-        title: data.title, 
-        width: 260, 
+        color,
+        title: data.title,
+        width: 260,
         tickValues: d3.utcYear.every(5).range(...color.domain()),
         tickFormat: d3.utcFormat("%Y")
       }));
